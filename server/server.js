@@ -23,24 +23,16 @@ let query = (queryString) => {
 // instantiate express app
 const app = express();
 
-app.get('/', function(req, res) {
-  res.send('./public/sign-in.html');
-});
-
-
-app.get('/api/data', function(req, res) {
-  query(queryString) //needs actual query
-  .then((data) => {
-    res.json(data); //returns array of js objects as returned rows of query
-  })
-  .catch((err) => {
-    res.sendStatus("500");
-    console.log(err.message);
-  })
-})
-
 // instantiate bodyParser middleware so we can get fields from post requests via req.body.fieldName
 app.use(bodyParser.urlencoded({ extended: true }));
+
+//api router
+import apiRouter from './routes/api'
+app.use('/api', apiRouter);
+
+//public router
+import publicRouter from './routes/public'
+app.use('/', public);
 
 // set up app to listen on port 3000  or any env port specified
 app.listen(process.env.PORT || 3000, () => {
@@ -48,4 +40,4 @@ app.listen(process.env.PORT || 3000, () => {
 });
 
 // export app for testing purposes
-module.exports = app;
+module.exports = {app, query};
