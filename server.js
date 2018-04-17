@@ -39,8 +39,6 @@ app.get('/api/data', function(req, res) {
   })
 })
 
-// set the superSecret key in our app which we will use  to sign our jwts
-//app.set('superSecret', config.secret);
 // instantiate bodyParser middleware so we can get fields from post requests via req.body.fieldName
 app.use(bodyParser.urlencoded({ extended: true }));
 
