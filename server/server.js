@@ -32,7 +32,7 @@ app.use('/api', apiRouter);
 
 //public router
 import publicRouter from './routes/public'
-app.use('/', public);
+app.use('/', publicRouter);
 
 // set up app to listen on port 3000  or any env port specified
 app.listen(process.env.PORT || 3000, () => {
