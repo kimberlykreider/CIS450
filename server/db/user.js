@@ -18,6 +18,7 @@ const userSchema = new mongoose.Schema({
     }
 });
 
+//given info, creates a new user and adds them to the database
 userSchema.statics.createUser = function(username, password, email) {
     let newUser = new this({
         username: username,
@@ -30,6 +31,7 @@ userSchema.statics.createUser = function(username, password, email) {
     });
 }
 
+//given a username and password, checks whether such a user exists and whether the password is correct. Returns a boolean.
 userSchema.statics.authenticate = function(username, password) {
     return this.findOne({username: username})
     .then((user) => {

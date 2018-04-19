@@ -2,6 +2,14 @@ const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
 var oracledb = require('oracledb');
+var config = require('./config');
+var mongoose = require('mongoose');
+
+//allows use of mongoose promises
+mongoose.Promise = global.Promise;
+
+//connects to local noSQL database
+mongoose.connect(process.env.MONGODB_URI || config.database);
 
 //function which takes in a queryString and executes the query. Returns promise which will return data as array of objects.
 let query = (queryString) => {
@@ -27,11 +35,11 @@ const app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
 
 //api router
-import apiRouter from './routes/api'
+var apiRouter  = require('./routes/api')
 app.use('/api', apiRouter);
 
 //public router
-import publicRouter from './routes/public'
+var publicRouter =  require('./routes/public');
 app.use('/', publicRouter);
 
 // set up app to listen on port 3000  or any env port specified
