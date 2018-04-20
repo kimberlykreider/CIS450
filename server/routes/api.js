@@ -1,6 +1,6 @@
-import express from 'express'
-import { query } from '../server'
-import User from '../db/user'
+var express =  require('express');
+var connection = require('../server');
+var User =  require('../db/user');
 
 
 var apiRouter = express.Router();
@@ -32,15 +32,18 @@ apiRouter.post('/signUp', function(req, res) {
 })
 
 //get request used to query for data
-apiRouter.get('/data', function(req, res) {
-    query(queryString) //needs actual query
-    .then((data) => {
-      res.json({message: 'success', data: data}); //returns array of js objects as returned rows of query
-    })
-    .catch((err) => {
-      res.sendStatus("500");
-      res.json({message: 'error has occured', data: err});
-    });
-  });
+// apiRouter.get('/data', function(req, res) {
+//     console.log(query);
+//     query('select * from joined where rownum < 10') //needs actual query
+//     .then((data) => {
+//       res.json({message: 'success', data: data}); //returns array of js objects as returned rows of query
+//       //return connection.close();
+//     })
+//     .catch((err) => {
+//       res.sendStatus("500");
+//       res.json({message: 'error has occured', data: err});
+//       //return connection.close;
+//     });
+//   });
 
   module.exports = apiRouter;
