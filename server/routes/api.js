@@ -1,16 +1,20 @@
 var express =  require('express');
 var connection = require('../server');
 var User =  require('../db/user');
-
+var jwt = require('jsonwebtokens');
 
 var apiRouter = express.Router();
 
 //post request used to sign in
 apiRouter.post('/signin', function (req,res) {
-    User.authenticate(req.username, req.password)
+    User.authenticate(req.body.username, req.body.password)
     .then((result) => {
         if (result) {
-            res.json({message: 'authentication sucessful'});
+            var payload = {
+                authenticated: true
+              };
+              var token = jwt.sign(payload, 'this is the secret');
+            res.json({message: 'authentication sucessful', token: token});
         } else {
             res.json({message: 'authenticantion failed'});
         }
@@ -18,18 +22,22 @@ apiRouter.post('/signin', function (req,res) {
     .catch((err) => {
         res.json({message: 'error has occured', data: err});
     })
-})
+});
 
 //post request used to sign up
 apiRouter.post('/signUp', function(req, res) {
     User.createUser(req.body.username, req.body.password, req.body.email)
     .then((user) => {
-        res.json({message: 'Sign up successful', data: user});
+        var payload = {
+            authenticated: true
+          };
+          var token = jwt.sign(payload, 'this is the secret');
+        res.json({message: 'Sign up successful', data: user, token: token});
     })
     .catch((err) => {
         res.json({message: 'error has occured', data: err});
     })
-})
+});
 
 //get request used to query for data
 // apiRouter.get('/data', function(req, res) {
