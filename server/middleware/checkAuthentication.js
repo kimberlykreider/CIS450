@@ -8,13 +8,13 @@ let checkAuthentication = function (req, res, next) {
     if (token) {
       jwt.verify(token, 'this is the secret', function (err, decoded) {
         if (err) {
-            res.redirect('localhost:3000');
+            res.redirect('localhost:3000/signin');
         } else {
             next();
         }
       });
     } else {
-        res.redirect('localhost:3000');
+        res.redirect('localhost:3000/signin');
     }
 }
 
