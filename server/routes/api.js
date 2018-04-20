@@ -1,7 +1,7 @@
 var express =  require('express');
 var connection = require('../server');
 var User =  require('../db/user');
-var jwt = require('jsonwebtokens');
+var jwt = require('jsonwebtoken');
 
 var apiRouter = express.Router();
 

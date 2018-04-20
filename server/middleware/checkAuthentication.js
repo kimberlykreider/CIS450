@@ -1,5 +1,5 @@
 var path = require('path');
-var jwt = require('jsonwebtokens');
+var jwt = require('jsonwebtoken');
 
 let checkAuthentication = function (req, res, next) {
     //grabs token
@@ -8,12 +8,14 @@ let checkAuthentication = function (req, res, next) {
     if (token) {
       jwt.verify(token, 'this is the secret', function (err, decoded) {
         if (err) {
-            res.redirect(path.join(__dirname, '../../src/public/sign-in'));
+            res.redirect('localhost:3000');
         } else {
             next();
         }
       });
     } else {
-        res.redirect(path.join(__dirname, '../../src/public/sign-in'));
+        res.redirect('localhost:3000');
     }
 }
+
+module.exports = checkAuthentication;
