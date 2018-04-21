@@ -2,7 +2,8 @@ const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
 var oracledb = require('oracledb');
-var mongoose = require('mongoose');
+var mongoose = require('mongoose')
+var uuid = require('node-uuid');;
 
 //allows use of mongoose promises
 mongoose.Promise = global.Promise;
@@ -17,6 +18,14 @@ function query(queryString) {
 
 // instantiate express app
 const app = express();
+
+// Generate a random cookie secret for this app
+var generateCookieSecret = function () {
+  return 'iamasecret' + uuid.v4();
+};
+
+//use cookies
+app.use(require('cookie-session')({secret: generateCookieSecret()}));
 
 // instantiate bodyParser middleware so we can get fields from post requests via req.body.fieldName
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -42,7 +51,7 @@ app.get('/api/data', function(req, res) {
             if (err) {
               console.log('error closing');
               console.log(err.message);
-          };
+            };
           });
         });
       }

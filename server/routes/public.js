@@ -14,4 +14,8 @@ publicRouter.get('/auth/plan', function(req, res) {
     res.sendFile(path.join(__dirname, '../../src/public/date-planner.html'));
 });
 
+publicRouter.get('/', function(req, res) {
+    res.sendFile(path.join(__dirname, '../../src/public/sign-in.html'));
+});
+
 module.exports = publicRouter;
