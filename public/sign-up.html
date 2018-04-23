@@ -1,0 +1,29 @@
+<html>
+  <head>
+    <link rel="stylesheet" type="text/css" href="./styles.css">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans|Roboto" rel="stylesheet">
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.2/angular.js"></script>
+    <script src="./signup.js"></script>
+  </head>
+  <body ng-app="SignUp">
+      <div id="header">
+        <h1>Sign Up Form</h1>
+        <h2>Please enter a username, password, and email.</h2>
+      </div>
+      <div id="content">
+        <form name="signUpForm" ng-controller="signUpController" class="sign-in-form" ng-submit="signup()">
+          Username:
+          <input type="text" name="username" ng-model="username"><br>
+          Password:
+          <input type="password" name="password" ng-model="password"><br>
+          Confirm Password:
+          <input type="password" name="confirmpass" ng-model="confirmpass"><br>
+          Email:
+          <input type="text" name="email" ng-model="email"><br><br>
+          <input type="submit" id="signup" value="Sign Up"/>
+          <h6 class="error">{{help}}</h6>
+          <a href="/signin">Return to Sign In Page</a>
+        </form>
+      </div>
+  </body>
+</html>

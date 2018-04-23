@@ -8,13 +8,21 @@ var apiRouter = express.Router();
 apiRouter.post('/signin', function (req,res) {
     let username = req.body.username;
     let password = req.body.password;
+    
     User.authenticate(username, password)
     .then((result) => {
         if (result) {
             req.session.isAuthenticated = true;
-            res.json({message: 'authenticantion successful'});
+            res.json({
+                message: 'authenticantion successful',
+                isAuthenticated: true
+            });
         } else {
-            res.json({message: 'authenticantion failed'});
+            req.session.isAuthenticated = false;
+            res.json({
+                message: 'authenticantion failed',
+                isAuthenticated: false
+            });
         }
     })
     .catch((err) => {
@@ -27,7 +35,11 @@ apiRouter.post('/signup', function(req, res) {
     User.createUser(req.body.username, req.body.password, req.body.email)
     .then((user) => {
         req.session.isAuthenticated = true;
-        res.json({message: 'Sign up successful', data: user});
+        res.json({
+            message: 'Sign up successful', 
+            data: user,
+            isAuthenticated: true
+        });
     })
     .catch((err) => {
         res.json({message: 'error has occured', data: err.message});

@@ -59,11 +59,12 @@ app.get('/api/data', function(req, res) {
 });
 
 //api router
-var apiRouter  = require('./routes/api')
+var apiRouter  = require('./routes/api');
 app.use('/api', apiRouter);
 
 //public router
 var publicRouter =  require('./routes/public');
+app.use(express.static('public'));
 app.use('/', publicRouter);
 
 // set up app to listen on port 3000  or any env port specified

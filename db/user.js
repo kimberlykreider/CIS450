@@ -33,13 +33,12 @@ userSchema.statics.createUser = function(username, password, email) {
 
 //given a username and password, checks whether such a user exists and whether the password is correct. Returns a boolean.
 userSchema.statics.authenticate = function(username, password) {
-    return this.findOne({username: username})
-    .then((user) => {
+    return (this.findOne({username: username}, 'username password', (err, user) => {
         if (!user) {
-            throw new Error('Username does not exist');
+            return false;
         }
         return bcrypt.compare(password, user.password);
-    });
+    }));
 }
 
 module.exports = mongoose.model('User', userSchema);
