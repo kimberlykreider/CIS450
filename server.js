@@ -31,7 +31,7 @@ app.use(require('cookie-session')({secret: generateCookieSecret()}));
 app.use(bodyParser.urlencoded({ extended: true }));
 
 //moved querying route to server since it requires a direct connection
-app.get('/api/data', function(req, res) {
+app.post('/api/data', function(req, res) {
   oracledb.getConnection(
     {
       user          : 'team13',
@@ -41,8 +41,8 @@ app.get('/api/data', function(req, res) {
       if (err) {
         res.json({message: 'failed to connect', data: err});
       } else {
-        console.log(req.data.query);
-        connection.execute('select * from joined where rownum < 4', function(err, data) {
+        var query = req.body.query;
+        connection.execute(query, function(err, data) {
           if (err) {
             res.json({message: 'error querying', data: err.message});
           } else {

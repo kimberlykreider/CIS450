@@ -5,13 +5,13 @@
     <script src="http://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.2/angular.js"></script>
     <script src="../date.js"></script>
   </head>
-  <body ng-app="Date">
+  <body ng-app="Date" ng-controller="dateController">
       <div id="header">
         <h1>Hello {{username}}</h1>
         <h2>Where would you like to start your search from?</h2>
       </div>
       <div id="content">
-        <form name="dateForm" ng-controller="dateController" id="date-form">
+        <form name="dateForm"  id="date-form">
           Address:
           <input type="text" name="address" ng-model="address"/>
           Radius:
@@ -19,11 +19,17 @@
           <input type="submit" id="search" ng-click="search()" value="Search"/>
           <h6 class="error">{{help}}</h6>
         </form>
-        <div id="results">
-          {{results}}
+        <div id="resultsTable">
           <table>
-              <tr>
-                    
+              <tr ng-model="tableHeader">
+                <th>Business</th>
+                <th>Point of Interest</th>
+                <th>Neighborhood</th>
+              </tr>
+              <tr ng-repeat="result in results">
+                <td>{{result[0]}}</td>
+                <td>{{result[1]}}</td>
+                <td>{{result[2]}}</td>
               </tr>
           </table>
         </div>
