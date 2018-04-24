@@ -10,6 +10,20 @@
         <h1>Hello {{username}}</h1>
         <h2>Where would you like to start your search from?</h2>
       </div>
+      <div id="weather">
+        <ol>
+          <li ng-repeat="period in weather">
+              <div class="card" style="width: 18rem;">
+                  <div class="card-body">
+                    <h5 class="card-title">Card title</h5>
+                    <img class="card-img-top" src=".../100px180/" alt="Card image cap">
+                    <p class="card-text"></p>
+                    <p class="card-text"></p>
+                  </div>
+                </div>
+          </li>
+        </ol>
+      </div>
       <div id="content">
         <form name="dateForm"  id="date-form">
           Address:

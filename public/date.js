@@ -8,6 +8,7 @@ app.controller('dateController', function($scope, $http, $httpParamSerializerJQL
   $scope.address = '';
   $scope.radius = 10;
   $scope.results = "hello";
+  $scope.weather = '';
 
   $scope.search = function() {
     if ($scope.address === '') {
@@ -53,6 +54,14 @@ app.controller('dateController', function($scope, $http, $httpParamSerializerJQL
           }).then(function(res) {
             $scope.results = res.data.data.rows;
           });
+
+          $http({
+            method: 'GET',
+            url: 'http://api.wunderground.com/api/87addce8194b8474/geolookup/forecast/q/' + lat +',' + lng + '.json',
+          }).then((res) => {
+            $scope.weather = res.forcast.simpleforcast;
+          });
+
         } else {
           $scope.help = 'UH OH an error occurred in trying to get the geocode';
         }
