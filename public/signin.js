@@ -29,8 +29,8 @@ app.controller('signInController', function($scope, $http,
       })
       .then(function(res) {
         if (res.data.isAuthenticated) {
-          $window.location = '/auth/plan'
-          //$window.location.reload();
+          $window.location = '/auth/plan';
+          $window.sessionStorage.setItem("username", angular.toJson($scope.username, false));
         } else {
           $scope.help = 'Invalid login credentials';
         }

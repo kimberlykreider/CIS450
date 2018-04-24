@@ -8,13 +8,13 @@
   <body ng-app="Date" ng-controller="dateController">
       <div id="header">
         <h1>Hello {{username}}</h1>
-        <h2>Where would you like to start your search from?</h2>
+        <h2>Please provide a starting address so we can help plan you're next date :)</h2>
       </div>
       <div id="content">
         <form name="dateForm"  id="date-form">
           Address:
           <input type="text" name="address" ng-model="address"/>
-          Radius:
+          Radius(miles):
           <input type="text" name="radius" ng-model="radius"/>
           <input type="submit" id="search" ng-click="search()" value="Search"/>
           <h6 class="error">{{help}}</h6>

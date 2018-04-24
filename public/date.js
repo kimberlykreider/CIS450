@@ -1,12 +1,12 @@
 var app = angular.module('Date', []);
 var geocodeAPIKey = 'AIzaSyBX6KJp8ln193CGKR2p9Bb0cKleF8XpFWA';
 
-app.controller('dateController', function($scope, $http, $httpParamSerializerJQLike) {
+app.controller('dateController', function($scope, $http, $httpParamSerializerJQLike, $window) {
   $scope.help = '';
-  $scope.username = '';
+  $scope.username = angular.fromJson($window.sessionStorage.getItem("username"));;
   $scope.email = '';
   $scope.address = '';
-  $scope.radius = 10;
+  $scope.radius = 1;
   $scope.results = "hello";
 
   $scope.search = function() {
@@ -27,10 +27,12 @@ app.controller('dateController', function($scope, $http, $httpParamSerializerJQL
         if (results) {
           var lat = results.geometry.location.lat;
           var lng = results.geometry.location.lng;
-          var maxLat = lat + 0.01;
-          var minLat = lat - 0.01;
-          var maxLng = lng + 0.01;
-          var minLng = lng - 0.01;
+          //1 degree is approximately 69 miles
+          var rad = $scope.radius / 69;
+          var maxLat = lat + rad;
+          var minLat = lat - rad;
+          var maxLng = lng + rad;
+          var minLng = lng - rad;
           
           var query = 'SELECT * FROM ' 
             + '(SELECT Business, POI, Neighborhood ' 
@@ -52,6 +54,9 @@ app.controller('dateController', function($scope, $http, $httpParamSerializerJQL
             }
           }).then(function(res) {
             $scope.results = res.data.data.rows;
+            if ($scope.results.length === 0) {
+              $scope.help = "We're sorry but the city you searched for is not currently supported :(";
+            }
           });
         } else {
           $scope.help = 'UH OH an error occurred in trying to get the geocode';

@@ -1,6 +1,6 @@
 body {
   margin: auto;
-  width: 50%;
+  width: 70%;
   text-align: center;
   font-family: 'Open Sans', sans-serif;
 }
@@ -11,4 +11,20 @@ body {
 
 .error {
   color: red;
+}
+
+table {
+  width: 100%;
+}
+
+th, td {
+  width: 30%;
+}
+
+th {
+  background-color: #fbcfcf;
+}
+
+td {
+  background-color: rgb(98.4%, 93.5%, 81%);
 }
