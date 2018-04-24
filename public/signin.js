@@ -1,4 +1,7 @@
-var app = angular.module('SignIn', []);
+var app = angular.module('SignIn', [])
+  .service('userProperties', function() {
+    
+  });
 
 app.controller('signInController', function($scope, $http, 
   $httpParamSerializerJQLike, $location, $window) {
@@ -26,7 +29,6 @@ app.controller('signInController', function($scope, $http,
       })
       .then(function(res) {
         if (res.data.isAuthenticated) {
-          //$location.url('/auth/plan');
           $window.location = '/auth/plan'
           //$window.location.reload();
         } else {

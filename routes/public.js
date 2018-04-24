@@ -3,6 +3,7 @@ var checkAuthentication = require('../middleware/checkAuthentication');
 var path = require('path');
 
 var publicRouter = express.Router();
+publicRouter.use(express.static('public'));
 
 publicRouter.use('/auth',checkAuthentication);
 

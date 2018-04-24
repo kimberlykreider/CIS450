@@ -1,23 +1,31 @@
 <html>
   <head>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" type="text/css" href="../styles.css">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans|Roboto" rel="stylesheet">
     <script src="http://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.2/angular.js"></script>
+    <script src="../date.js"></script>
   </head>
-  <body>
+  <body ng-app="Date">
       <div id="header">
-        <h1>Hello</h1>
+        <h1>Hello {{username}}</h1>
         <h2>Where would you like to start your search from?</h2>
       </div>
       <div id="content">
-        <form>
+        <form name="dateForm" ng-controller="dateController" id="date-form">
           Address:
-          <input type="text" name="address">
+          <input type="text" name="address" ng-model="address"/>
           Radius:
-          <input type="text" name="radius"><br>
+          <input type="text" name="radius" ng-model="radius"/>
+          <input type="submit" id="search" ng-click="search()" value="Search"/>
+          <h6 class="error">{{help}}</h6>
         </form>
         <div id="results">
-
+          {{results}}
+          <table>
+              <tr>
+                    
+              </tr>
+          </table>
         </div>
       </div>
   </body>
