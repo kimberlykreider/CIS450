@@ -69,7 +69,7 @@ app.controller('foodController', function($scope, $http, $httpParamSerializerJQL
             }
           }).then(function(res) {
             $scope.results = res.data.data.rows;
-            console.log($scope.results);
+
             if ($scope.results.length === 0) {
               $scope.help = "We're sorry but the city you searched for is not currently supported :(";
             }
