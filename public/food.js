@@ -1,26 +1,13 @@
-var app = angular.module('Date', []);
+var app = angular.module('Food', []);
 var geocodeAPIKey = 'AIzaSyBX6KJp8ln193CGKR2p9Bb0cKleF8XpFWA';
 
-app.controller('dateController', function($scope, $http, $httpParamSerializerJQLike, $window) {
+app.controller('foodController', function($scope, $http, $httpParamSerializerJQLike, $window) {
   $scope.help = '';
   $scope.username = angular.fromJson($window.sessionStorage.getItem("username"));
-  $scope.address = '';
-  $scope.radius = 1;
+  $scope.address = angular.fromJson($window.sessionStorage.getItem("address"));
+  $scope.radius = angular.fromJson($window.sessionStorage.getItem("rad"));
   $scope.results = [];
   $scope.weather = '';
-
-  $scope.food = function() {
-    var dataToStore = {
-      username: $scope.username,
-      rad: $scope.radius,
-      address: $scope.address
-    }
-    for (var prop in dataToStore) {
-      var key = "" + prop;
-      $window.sessionStorage.setItem(prop, angular.toJson(dataToStore[prop], false));
-    }
-    $window.location = '/auth/food';
-  }
 
   $scope.search = function() {
     if ($scope.address === '') {
@@ -46,14 +33,29 @@ app.controller('dateController', function($scope, $http, $httpParamSerializerJQL
           var minLat = lat - rad;
           var maxLng = lng + rad;
           var minLng = lng - rad;
-          
-          var query = 'SELECT * FROM ' 
-            + '(SELECT Business, POI, Neighborhood ' 
-            + 'FROM joined ' 
-            + 'WHERE (latitude<=(' + maxLat + ') AND latitude>=(' + minLat + ') AND ' 
-            + 'longitude<=(' + maxLng + ') AND longitude>=(' + minLng + ')) ORDER BY ' 
-            + '\'Business_Rating\', Distance DESC) WHERE ROWNUM <= 10';
-          
+          var type = '';
+
+          var radios = document.getElementsByName('type'); 
+          for (var i = 0; i < radios.length; i++) {
+            if (radios[i].checked) {
+              type = radios[i].value;
+            }
+          }
+
+          if (type === '') {
+            $scope.help = 'Please choose one of the food options above.'
+            return;
+          }
+
+          var query = 'SELECT business.name, business.neighborhood, ' + 
+            'business.address, business.city, business.state, business.postal_code, ' +
+            'business.stars FROM business LEFT JOIN category ON  business.id = category.business_id ' +
+            'WHERE category.category=\'' + type + '\' AND ' +
+            'business.latitude<=(' + maxLat + ') AND ' +
+            'business.latitude>=(' + minLat + ') AND ' +
+            'business.longitude<=('+ maxLng + ') AND ' +
+            'business.longitude>=(' + minLng + ') ORDER BY business.stars DESC';
+            
           var data = $httpParamSerializerJQLike({
             'query': query
           });
@@ -67,18 +69,17 @@ app.controller('dateController', function($scope, $http, $httpParamSerializerJQL
             }
           }).then(function(res) {
             $scope.results = res.data.data.rows;
+            console.log($scope.results);
             if ($scope.results.length === 0) {
               $scope.help = "We're sorry but the city you searched for is not currently supported :(";
             }
           });
 
-          console.log('http://api.wunderground.com/api/87addce8194b8474/geolookup/forecast/q/' + lat +',' + lng + '.json');
           $http({
             method: 'GET',
             url: 'http://api.wunderground.com/api/87addce8194b8474/geolookup/forecast/q/' + lat +',' + lng + '.json',
           }).then((res) => {
-            console.log(res);
-            $scope.weather = res.data.forecast.simpleforecast.forecastday;
+            $scope.weather = res.forcast.simpleforcast;
           });
 
         } else {
@@ -87,4 +88,5 @@ app.controller('dateController', function($scope, $http, $httpParamSerializerJQL
       });
     }
   }
+  
 });

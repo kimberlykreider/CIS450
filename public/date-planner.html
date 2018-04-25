@@ -9,7 +9,7 @@
   <body ng-app="Date" ng-controller="dateController">
       <div id="header">
         <h1>Hello {{username}}</h1>
-        <h2>Where would you like to start your search from?</h2>
+        <h2>Please provide a starting address so we can help plan you're next date :)</h2>
       </div>
       <div id="weather">
         <div  class="card-group" style="max-width: 32rem;">
@@ -26,11 +26,16 @@
         <form name="dateForm"  id="date-form" class="form-group">
           Address:
           <input class="form-control" type="text" name="address" ng-model="address"/>
-          Radius:
+          Radius(miles):
           <input type="range" class="custom-range" min="0" max="10" step="0.5" name="radius"/>
           <input class="btn btn-primary mb-2" type="submit" id="search" ng-click="search()" value="Search"/>
           <h6 class="error">{{help}}</h6>
         </form>
+        <div>
+          <h4>Narrow Down Your Search:</h4>
+          <button ng-click="food()">Food & Drink</button>
+          <button ng-click="poi()">Points of Interest</button>
+        </div>
         <div id="resultsTable">
           <table class="table">
               <tr ng-model="tableHeader" class="thead-dark">
