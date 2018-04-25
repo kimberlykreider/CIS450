@@ -29,6 +29,7 @@ app.controller('foodController', function($scope, $http, $httpParamSerializerJQL
           var lng = results.geometry.location.lng;
           //1 degree is approximately 69 miles
           var rad = $scope.radius / 69;
+          //var rad = 0.01;
           var maxLat = lat + rad;
           var minLat = lat - rad;
           var maxLng = lng + rad;
@@ -55,6 +56,9 @@ app.controller('foodController', function($scope, $http, $httpParamSerializerJQL
             'business.latitude>=(' + minLat + ') AND ' +
             'business.longitude<=('+ maxLng + ') AND ' +
             'business.longitude>=(' + minLng + ') ORDER BY business.stars DESC';
+
+            console.log(type);
+            console.log(maxLat);
             
           var data = $httpParamSerializerJQLike({
             'query': query
@@ -68,20 +72,13 @@ app.controller('foodController', function($scope, $http, $httpParamSerializerJQL
               'Content-Type': 'application/x-www-form-urlencoded'
             }
           }).then(function(res) {
+            console.log(res);
             $scope.results = res.data.data.rows;
 
             if ($scope.results.length === 0) {
               $scope.help = "We're sorry but the city you searched for is not currently supported :(";
             }
           });
-
-          $http({
-            method: 'GET',
-            url: 'http://api.wunderground.com/api/87addce8194b8474/geolookup/forecast/q/' + lat +',' + lng + '.json',
-          }).then((res) => {
-            $scope.weather = res.forcast.simpleforcast;
-          });
-
         } else {
           $scope.help = 'UH OH an error occurred in trying to get the geocode';
         }

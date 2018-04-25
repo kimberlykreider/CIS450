@@ -29,6 +29,7 @@ app.controller('poiController', function($scope, $http, $httpParamSerializerJQLi
           var lng = results.geometry.location.lng;
           //1 degree is approximately 69 miles
           var rad = $scope.radius / 69;
+          //var rad= 0.01;
           var maxLat = lat + rad;
           var minLat = lat - rad;
           var maxLng = lng + rad;

@@ -58,8 +58,8 @@
         <form name="dateForm"  id="date-form" class="form-group">
           Address:
           <input class="form-control w-50" id = "address" type="text" name="address" ng-model="address"/>
-          <label for="radius">Radius(0 - 10 miles):</label>
-          <input type="range" class="custom-range" min="0" max="10" step="1" name="radius" id="radius"/><br>
+          <label for="radius">Radius(1 - 5 miles):</label>
+          <input type="range" class="custom-range" min="1" max="5" step="1" name="radius" id="radius" ng-model="radius"/><br>
           <input class="btn btn-primary mb-2" type="submit" id="search" ng-click="search()" value="Search"/>
           <h6 class="error">{{help}}</h6>
         </form>

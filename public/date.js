@@ -42,6 +42,7 @@ app.controller('dateController', function($scope, $http, $httpParamSerializerJQL
           var lng = results.geometry.location.lng;
           //1 degree is approximately 69 miles
           var rad = $scope.radius / 69;
+          console.log(rad);
           var maxLat = lat + rad;
           var minLat = lat - rad;
           var maxLng = lng + rad;
@@ -52,7 +53,7 @@ app.controller('dateController', function($scope, $http, $httpParamSerializerJQL
             + 'FROM joined ' 
             + 'WHERE (latitude<=(' + maxLat + ') AND latitude>=(' + minLat + ') AND ' 
             + 'longitude<=(' + maxLng + ') AND longitude>=(' + minLng + ')) ORDER BY ' 
-            + '\'Business_Rating\', Distance DESC) WHERE ROWNUM <= 10';
+            + '\'Business_Rating\', Distance DESC) WHERE ROWNUM <= 30';
           
           var data = $httpParamSerializerJQLike({
             'query': query
@@ -77,7 +78,6 @@ app.controller('dateController', function($scope, $http, $httpParamSerializerJQL
             method: 'GET',
             url: 'http://api.wunderground.com/api/87addce8194b8474/geolookup/forecast/q/' + lat +',' + lng + '.json',
           }).then((res) => {
-            console.log(res);
             $scope.weather = res.data.forecast.simpleforecast.forecastday;
           });
 
