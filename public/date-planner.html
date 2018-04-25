@@ -1,12 +1,44 @@
 <html>
   <head>
-      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="../styles.css">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans|Roboto" rel="stylesheet">
     <script src="http://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.2/angular.js"></script>
     <script src="../date.js"></script>
   </head>
   <body ng-app="Date" ng-controller="dateController">
+      <nav class="navbar navbar-expand-sm navbar-light bg-light">
+          <a class="navbar-brand" href="#">Date Planner</a>
+          <div>
+            <ul class="navbar-nav">
+              <li class="nav-item active">
+                  <a class="nav-link" href="/auth/plan">
+                  Plan a Date
+                  </a>
+              </li>
+              <li class="nav-item">
+                  <a class="nav-link" href="/auth/food">
+                  Restaurant Search
+                  </a>
+              </li>
+              <li class="nav-item">
+                  <a class="nav-link" href="/auth/poi">
+                  Points of Interest
+                  </a>
+              </li>
+              <li class="nav-item">
+                  <a class="nav-link" href="/signin">
+                  Sign In
+                  </a>
+              </li>
+              <li class="nav-item">
+                  <a class="nav-link" href="/signup">
+                  Sign Up
+                  </a>
+              </li>
+            </ul>
+          </div>
+      </nav>
       <div id="header">
         <h1>Hello {{username}}</h1>
         <h2>Please provide a starting address so we can help plan you're next date :)</h2>
@@ -25,21 +57,16 @@
       <div id="content">
         <form name="dateForm"  id="date-form" class="form-group">
           Address:
-          <input class="form-control" type="text" name="address" ng-model="address"/>
-          Radius(miles):
-          <input type="range" class="custom-range" min="0" max="10" step="0.5" name="radius"/>
+          <input class="form-control w-50" id = "address" type="text" name="address" ng-model="address"/>
+          <label for="radius">Radius(0 - 10 miles):</label>
+          <input type="range" class="custom-range" min="0" max="10" step="1" name="radius" id="radius"/><br>
           <input class="btn btn-primary mb-2" type="submit" id="search" ng-click="search()" value="Search"/>
           <h6 class="error">{{help}}</h6>
         </form>
-        <div>
-          <h4>Narrow Down Your Search:</h4>
-          <button ng-click="food()">Food & Drink</button>
-          <button ng-click="poi()">Points of Interest</button>
-        </div>
         <div id="resultsTable">
           <table class="table">
               <tr ng-model="tableHeader" class="thead-dark">
-                <th>Business</th>
+                <th>Food & Drink</th>
                 <th>Point of Interest</th>
                 <th>Neighborhood</th>
               </tr>

@@ -21,3 +21,10 @@ body {
   max-width: 32rem;
   margin: auto;
 }
+#content {
+  margin: auto;
+}
+
+#address {
+  margin: auto;
+}
