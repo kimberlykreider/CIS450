@@ -12,3 +12,12 @@ body {
 .error {
   color: red;
 }
+
+#weather {
+  margin-bottom: 1rem;
+}
+
+.card-group {
+  max-width: 32rem;
+  margin: auto;
+}

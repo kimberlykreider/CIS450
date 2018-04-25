@@ -55,11 +55,13 @@ app.controller('dateController', function($scope, $http, $httpParamSerializerJQL
             $scope.results = res.data.data.rows;
           });
 
+          console.log('http://api.wunderground.com/api/87addce8194b8474/geolookup/forecast/q/' + lat +',' + lng + '.json');
           $http({
             method: 'GET',
             url: 'http://api.wunderground.com/api/87addce8194b8474/geolookup/forecast/q/' + lat +',' + lng + '.json',
           }).then((res) => {
-            $scope.weather = res.forcast.simpleforcast;
+            console.log(res);
+            $scope.weather = res.data.forecast.simpleforecast.forecastday;
           });
 
         } else {
