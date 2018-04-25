@@ -33,6 +33,11 @@
           <input type="submit" id="search" ng-click="search()" value="Search"/>
           <h6 class="error">{{help}}</h6>
         </form>
+        <div>
+          <h4>Narrow Down Your Search:</h4>
+          <button ng-click="food()">Food & Drink</button>
+          <button ng-click="poi()">Points of Interest</button>
+        </div>
         <div id="resultsTable">
           <table>
               <tr ng-model="tableHeader">

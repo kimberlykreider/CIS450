@@ -24,11 +24,11 @@ publicRouter.get('/', function(req, res) {
 });
 
 publicRouter.get('/auth/poi', function(req, res) {
-    res.sendFile(path.join(__dirname, '../public/'))
+    res.sendFile(path.join(__dirname, '../public/poi.html'))
 })
 
 publicRouter.get('/auth/food', function(req, res) {
-    res.sendFile(path.join(__dirname, '../public/'));
+    res.sendFile(path.join(__dirname, '../public/food.html'));
 });
 
 module.exports = publicRouter;

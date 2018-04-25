@@ -1,0 +1,49 @@
+<html>
+  <head>
+    <link rel="stylesheet" type="text/css" href="../styles.css">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans|Roboto" rel="stylesheet">
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.2/angular.js"></script>
+    <script src="../food.js"></script>
+  </head>
+  <body ng-app="Food" ng-controller="foodController">
+      <div id="header">
+        <h1>Food Search</h1>
+        <h2>Please provide a starting address so we can help plan you're next date :)</h2>
+      </div>
+      <div id="content">
+        <form name="foodForm"  id="food-form">
+          Address:
+          <input type="text" name="address" ng-model="address"/>
+          Radius(miles):
+          <input type="text" name="radius" ng-model="radius"/><br>
+          Food Options<br>
+          Vegan:
+          <input type="radio" name="type" id="veganBox" value="Vegan">
+          Cafes:
+          <input type="radio" name="type" id="cafeBox" value="Cafes">
+          Restaurants:
+          <input type="radio" name="type" id="restaurantBox" value="Restaurants">
+          Bars:
+          <input type="radio" name="type" id="barsBox" value="Bars"><br>
+          <input type="submit" id="search" ng-click="search()" value="Search"/>
+          <h6 class="error">{{help}}</h6>
+        </form>
+        <div id="resultsTable">
+          <table>
+              <tr ng-model="tableHeader">
+                <th>Name</th>
+                <th>Neighborhood</th>
+                <th>Address</th>
+                <th>Stars</th>
+              </tr>
+              <tr ng-repeat="x in results">
+                <td>{{x[0]}}</td>
+                <td>{{x[1]}}</td>
+                <td>{{x[2] + ' ' + x[3] + ' ' + x[4] + ' ' + x[5]}}</td>
+                <td>{{x[6]}}</td>
+              </tr>
+          </table>
+        </div>
+      </div>
+  </body>
+</html> 
