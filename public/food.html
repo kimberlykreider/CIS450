@@ -1,0 +1,83 @@
+<html>
+  <head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="../styles.css">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans|Roboto" rel="stylesheet">
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.2/angular.js"></script>
+    <script src="../food.js"></script>
+  </head>
+  <body ng-app="Food" ng-controller="foodController">
+      <nav class="navbar navbar-expand-sm navbar-light bg-light">
+          <a class="navbar-brand" href="#">Date Planner</a>
+          <div>
+            <ul class="navbar-nav">
+              <li class="nav-item">
+                  <a class="nav-link" href="/auth/plan">
+                  Plan a Date
+                  </a>
+              </li>
+              <li class="nav-item active">
+                  <a class="nav-link" href="/auth/food">
+                  Restaurant Search
+                  </a>
+              </li>
+              <li class="nav-item">
+                  <a class="nav-link" href="/auth/poi">
+                  Points of Interest
+                  </a>
+              </li>
+              <li class="nav-item">
+                  <a class="nav-link" href="/signin">
+                  Sign In
+                  </a>
+              </li>
+              <li class="nav-item">
+                  <a class="nav-link" href="/signup">
+                  Sign Up
+                  </a>
+              </li>
+            </ul>
+          </div>
+      </nav>
+      <div id="header">
+        <h1>Restaurant Search</h1>
+        <h4>Please provide a starting address so we can help plan you're next date :)</h4>
+      </div>
+      <div id="content">
+        <form name="foodForm"  class="form-group" id="food-form">
+          Address:
+          <input class="form-control w-50" id="address" type="text" name="address" ng-model="address"/>
+          <label for="radius">Radius(1 - 5 miles):</label>
+          <input type="range" class="custom-range" min="1" max="5" step="1" name="radius" id="radius" ng-model="radius"/>
+          <br>
+          Restaurant Options<br>
+          Vegan:
+          <input type="radio" name="type" id="veganBox" value="Vegan">
+          Cafes:
+          <input type="radio" name="type" id="cafeBox" value="Cafes">
+          Restaurants:
+          <input type="radio" name="type" id="restaurantBox" value="Restaurants">
+          Bars:
+          <input type="radio" name="type" id="barsBox" value="Bars"><br>
+          <input class="btn btn-primary mb-2" type="submit" id="search" ng-click="search()" value="Search"/>
+          <h6 class="error">{{help}}</h6>
+        </form>
+        <div id="resultsTable">
+          <table class="table">
+              <tr ng-model="tableHeader" class="thead-dark">
+                <th>Name</th>
+                <th>Neighborhood</th>
+                <th>Address</th>
+                <th>Stars</th>
+              </tr>
+              <tr ng-repeat="x in results">
+                <td>{{x[0]}}</td>
+                <td>{{x[1]}}</td>
+                <td>{{x[2] + ' ' + x[3] + ' ' + x[4] + ' ' + x[5]}}</td>
+                <td>{{x[6]}}</td>
+              </tr>
+          </table>
+        </div>
+      </div>
+  </body>
+</html> 
